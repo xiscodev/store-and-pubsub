@@ -60,8 +60,8 @@ const resetStore = (storeName, initialObject) => {
 
 export {
   _store,
-  pushTo,
   pullFrom,
+  pushTo,
   unsetPath,
   resetStore,
 }
