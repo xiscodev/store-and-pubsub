@@ -41,15 +41,48 @@ pushTo(`${MODULE_STORE_NAME}.currentParam`, state)
 pullFrom(`${MODULE_STORE_NAME}.currentParam`)
 ```
 
-Or using reset and unset functions for store
+To unset or push multiple values to store
 
 ```js
-import { unsetPath } from "store-and-pubsub";
+import { unsetPath, pushValuesTo } from "store-and-pubsub";
 
 const MODULE_STORE_NAME = 'moduleStoreName'
 
 // REMOVES THE PROPERTY AT PATH OF STORE
 unsetPath(`${MODULE_STORE_NAME}.currentParam`)
+
+// PUSHES MULTIPLE PROPERTIES AND VALUES AT PATH OF STORE
+const values = {
+  prop1: "value1",
+  prop2: "value2",
+}
+pushValuesTo(`${MODULE_STORE_NAME}`, values)
+```
+
+Paths from store can be subscribed for changes
+
+```js
+import { subscribeToPath, unsubscribeFromPath, unsubscribeCallbackOrSubscriber } from "store-and-pubsub";
+
+const MODULE_STORE_NAME = 'moduleStoreName'
+
+const path = `${MODULE_STORE_NAME}.currentParam`
+
+const myCallback = () => {
+  // YOUR OWN CODE AND STUFF
+}
+
+// SUBSCRIBES TO moduleStoreName.currentParam CHANGES EXECUTING myCallback
+const subscriber = subscribeToPath(path, myCallback)
+
+// REMOVES SUBSCRIPTION FRM GIVEN PATH
+unsubscribeFromPath(path)
+
+// GIVEN subscriber REMOVES IT FROM PATH SUBSCRIPTION
+unsubscribeCallbackOrSubscriber(subscription)
+
+// GIVEN myCallback REMOVES IT FROM ALL PATHS SUBSCRIBED
+unsubscribeCallbackOrSubscriber(myCallback)
 ```
 
 Powered by [xiscodev](https://xisco.dev)
@@ -75,7 +108,7 @@ Powered by [xiscodev](https://xisco.dev)
     *   [Parameters](#parameters-4)
 *   [unsubscribeFromPath](#unsubscribefrompath)
     *   [Parameters](#parameters-5)
-*   [unsubscribeCallback](#unsubscribecallback)
+*   [unsubscribeCallbackOrSubscriber](#unsubscribecallbackorsubscriber)
     *   [Parameters](#parameters-6)
 
 #### pullFrom
@@ -148,7 +181,7 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 *   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
 
-#### unsubscribeCallback
+#### unsubscribeCallbackOrSubscriber
 
 Unsubscribe from all paths were callback has subscribed.
 
