@@ -30,12 +30,12 @@ const unsubscribeFromPath = (path) => {
  * @description Unsubscribe from all paths were callback has subscribed.
  * @param {Function} callback to unsubscribe
  */
-const unsubscribeCallback = (callback) => {
+const unsubscribeCallbackOrSubscriber = (callback) => {
   unsubscribe(callback)
 }
 
 export {
   subscribeToPath,
   unsubscribeFromPath,
-  unsubscribeCallback,
+  unsubscribeCallbackOrSubscriber,
 }
