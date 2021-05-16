@@ -1,8 +1,8 @@
 import {
   pushTo,
   pullFrom,
+  pushValuesTo,
   unsetPath,
-  resetStore,
 } from './baseStore'
 
 // ENVIRONMENT VARIABLES
@@ -28,22 +28,22 @@ describe('pushTo', () => {
   })
 })
 
+describe('pushValuesTo', () => {
+  it('should exist', () => {
+    expect(pushValuesTo).not.toBeUndefined()
+  })
+
+  it('should be a function', () => {
+    expect(typeof pushValuesTo).toBe('function')
+  })
+})
+
 describe('unsetPath', () => {
   it('should exist', () => {
     expect(unsetPath).not.toBeUndefined()
   })
 
   it('should be a function', () => {
-    expect(unsetPath())
-  })
-})
-
-describe('resetStore', () => {
-  it('should exist', () => {
-    expect(resetStore).not.toBeUndefined()
-  })
-
-  it('should be a function', () => {
-    expect(resetStore())
+    expect(typeof unsetPath).toBe('function')
   })
 })

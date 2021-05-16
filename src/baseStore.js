@@ -1,3 +1,4 @@
+import { publish } from 'pubsub-js'
 import set from 'lodash.set'
 import get from 'lodash.get'
 import unset from 'lodash.unset'
@@ -13,8 +14,8 @@ const _store = {}
  * @access public
  * @type {Function}
  * @description Retrieves value from stored path.
- * @param {*} path stored which wants to retrieve value from
- * @returns {*} can be anything stored at given path
+ * @param {string} path locator string path to store
+ * @returns {*} can be anything stored at given path, anythng stored returns undefined
  */
 const pullFrom = (path) => {
   return get(_store, path)
@@ -24,44 +25,53 @@ const pullFrom = (path) => {
  * @access public
  * @type {Function}
  * @description Push value to path.
- * @param {*} path stored which wants to push values
+ * @param {string} path locator string path to store
  * @param {*} newValue the value to push
- * @returns {*} the newValue stored to path
  */
-const pushTo = (path, newValue) => {
+const pushTo = (path, newValue, forceUpdate = false) => {
+  let hasPublished = false
   const oldValue = pullFrom(path)
-  if (oldValue !== newValue) {
+  if (forceUpdate || oldValue !== newValue) {
     set(_store, path, newValue)
+    hasPublished = publish(path, {
+      newValue,
+      oldValue,
+    })
   }
-  return newValue
+  console.log(`pushTo() ${path} ${newValue} ${hasPublished}`)
+}
+
+/**
+ * @access public
+ * @type {Function}
+ * @description Push value to path.
+ * @param {string} path locator string path to store
+ * @param {object} values contains multiple keys and values to be pushed to store
+ */
+const pushValuesTo = (path, values) => {
+  for (const key in values) {
+    if (values.hasOwnProperty(key)) {
+      pushTo(`${path}.${key}`, values[key])
+    }
+  }
 }
 
 /**
  * @access public
  * @type {Function}
  * @description Removes path stored.
- * @param {*} path stored which wants to destroy
+ * @param {string} path locator string path to store
  * @returns {boolean} true if unset has been effective, otherwise returns false
  */
 const unsetPath = (path) => {
-  return unset(path)
-}
-
-/**
- * @access public
- * @type {Function}
- * @description Clears all stored paths and values.
- * @param {*} storeName to be cleared
- * @param {*} initialObject to populate empty object with initial params, default undefined
- */
-const resetStore = (storeName, initialObject) => {
-  pushTo(storeName, Object.assign({}, initialObject))
+  const hasUnsetted = unset(path)
+  console.log(`unsetPath() ${path} ${hasUnsetted}`)
+  return hasUnsetted
 }
 
 export {
-  _store,
   pullFrom,
   pushTo,
+  pushValuesTo,
   unsetPath,
-  resetStore,
 }
