@@ -32,7 +32,7 @@
     "test:watch": "npm run test -- --watch",
     "test:watch-all": "npm run test -- --watchAll",
     "test:cover": "npm run test -- --coverage",
-    "lint": "eslint --fix \"src/**/*.js\""
+    "lint": "eslint --fix \"src/*.js\""
   },
   "pre-commit": [
     "lint"

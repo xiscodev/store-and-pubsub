@@ -1,7 +1,11 @@
-import { pushTo, pullFrom, unsetPath, resetStore } from './baseStore'
+import { pushTo, pullFrom, unsetPath } from './baseStore'
+import { subscribeToPath, unsubscribeFromPath, unsubscribeCallback } from './pubsubStore'
 
 // SIMPLE STORE
 exports.pushTo = pushTo
 exports.pullFrom = pullFrom
 exports.unsetPath = unsetPath
-exports.resetStore = resetStore
+// PUBSUB STORE
+exports.subscribeToPath = subscribeToPath
+exports.unsubscribeFromPath = unsubscribeFromPath
+exports.unsubscribeCallback = unsubscribeCallback

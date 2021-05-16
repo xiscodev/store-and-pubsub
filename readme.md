@@ -21,7 +21,7 @@ let { pullFrom, pushTo } = require("store-and-pubsub");
 *The import way*
 
 ```js
-import { unsetPath, resetStore } from "store-and-pubsub";
+import { unsetPath } from "store-and-pubsub";
 ```
 
 Then use it to establish a store with getter and setter for a path, for example currentParam
@@ -41,15 +41,12 @@ pushTo(`${MODULE_STORE_NAME}.currentParam`, state)
 pullFrom(`${MODULE_STORE_NAME}.currentParam`)
 ```
 
-Or one time callback execution
+Or using reset and unset functions for store
 
 ```js
-import { unsetPath, resetStore } from "store-and-pubsub";
+import { unsetPath } from "store-and-pubsub";
 
 const MODULE_STORE_NAME = 'moduleStoreName'
-
-// RESET CAN ALSO BE USED TO INITIALIZE AN EMPTY STORE FOR YOUR MODULE
-resetStore(MODULE_STORE_NAME)
 
 // REMOVES THE PROPERTY AT PATH OF STORE
 unsetPath(`${MODULE_STORE_NAME}.currentParam`)
@@ -70,10 +67,16 @@ Powered by [xiscodev](https://xisco.dev)
     *   [Parameters](#parameters)
 *   [pushTo](#pushto)
     *   [Parameters](#parameters-1)
-*   [unsetPath](#unsetpath)
+*   [pushValuesTo](#pushvaluesto)
     *   [Parameters](#parameters-2)
-*   [resetStore](#resetstore)
+*   [unsetPath](#unsetpath)
     *   [Parameters](#parameters-3)
+*   [subscribeToPath](#subscribetopath)
+    *   [Parameters](#parameters-4)
+*   [unsubscribeFromPath](#unsubscribefrompath)
+    *   [Parameters](#parameters-5)
+*   [unsubscribeCallback](#unsubscribecallback)
+    *   [Parameters](#parameters-6)
 
 #### pullFrom
 
@@ -83,9 +86,9 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 ##### Parameters
 
-*   `path` **any** stored which wants to retrieve value from
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
 
-Returns **any** can be anything stored at given path
+Returns **any** can be anything stored at given path, anythng stored returns undefined
 
 #### pushTo
 
@@ -95,10 +98,20 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 ##### Parameters
 
-*   `path` **any** stored which wants to push values
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
 *   `newValue` **any** the value to push
+*   `forceUpdate`   (optional, default `false`)
 
-Returns **any** the newValue stored to path
+#### pushValuesTo
+
+Push value to path.
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
+*   `values` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** contains multiple keys and values to be pushed to store
 
 #### unsetPath
 
@@ -108,17 +121,39 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 ##### Parameters
 
-*   `path` **any** stored which wants to destroy
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** true if unset has been effective, otherwise returns false
 
-#### resetStore
+#### subscribeToPath
 
-Clears all stored paths and values.
+Subscribes to stored path changes with given callback.
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
 ##### Parameters
 
-*   `storeName` **any** to be cleared
-*   `initialObject` **any** to populate empty object with initial params, default undefined
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
+*   `callback`  
+
+Returns **any** reference to be used to single unsubscribe
+
+#### unsubscribeFromPath
+
+Unsubscribe from given paths were has subscribed.
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+*   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
+
+#### unsubscribeCallback
+
+Unsubscribe from all paths were callback has subscribed.
+
+Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
+
+##### Parameters
+
+*   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** to unsubscribe

@@ -11,13 +11,12 @@ module.exports = {
       runner: 'jest-runner-eslint',
       testMatch: [
         '<rootDir>/src/*.js',
-        '<rootDir>/src/**/*.js',
       ],
     },
     {
       displayName: 'testing',
       testMatch: [
-        '<rootDir>/src/**/*.spec.js',
+        '<rootDir>/src/*.spec.js',
       ],
       moduleDirectories: [
         'node_modules',
