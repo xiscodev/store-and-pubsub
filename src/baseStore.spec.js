@@ -14,7 +14,7 @@ describe('pullFrom', () => {
   })
 
   it('should be a function', () => {
-    expect(pullFrom())
+    expect(typeof pullFrom).toBe('function')
   })
 })
 

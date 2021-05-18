@@ -18,27 +18,29 @@ const _store = {}
  * @returns {*} can be anything stored at given path, anythng stored returns undefined
  */
 const pullFrom = (path) => {
-  return get(_store, path)
+  const stored = get(_store, path)
+  DEBUG && console.log('STORE', `${path} pullFrom()`, stored)
+  return stored
 }
 
 /**
  * @access public
  * @type {Function}
- * @description Push value to path.
+ * @description Push value to path and notify if could publish.
  * @param {string} path locator string path to store
  * @param {*} newValue the value to push
  */
 const pushTo = (path, newValue, forceUpdate = false) => {
-  let hasPublished = false
+  let hasSubscribers = false
   const oldValue = pullFrom(path)
   if (forceUpdate || oldValue !== newValue) {
     set(_store, path, newValue)
-    hasPublished = publish(path, {
+    hasSubscribers = publish(path, {
       newValue,
       oldValue,
     })
   }
-  console.log(`pushTo() ${path} ${newValue} ${hasPublished}`)
+  DEBUG && console.log('STORE', `${path} pushTo() hasSubscribers ${hasSubscribers}`, newValue, oldValue)
 }
 
 /**
@@ -49,6 +51,7 @@ const pushTo = (path, newValue, forceUpdate = false) => {
  * @param {object} values contains multiple keys and values to be pushed to store
  */
 const pushValuesTo = (path, values) => {
+  DEBUG && console.log('STORE', `${path} pushValuesTo()`, values)
   for (const key in values) {
     if (values.hasOwnProperty(key)) {
       pushTo(`${path}.${key}`, values[key])
@@ -65,7 +68,7 @@ const pushValuesTo = (path, values) => {
  */
 const unsetPath = (path) => {
   const hasUnsetted = unset(path)
-  console.log(`unsetPath() ${path} ${hasUnsetted}`)
+  DEBUG && console.log('STORE', `${path} unsetPath() ${hasUnsetted}`)
   return hasUnsetted
 }
 
