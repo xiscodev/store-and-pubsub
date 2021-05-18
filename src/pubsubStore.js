@@ -1,5 +1,4 @@
 import { subscribe, unsubscribe } from 'pubsub-js'
-import { pullFrom } from './baseStore'
 
 /**
  * @access public
@@ -9,8 +8,8 @@ import { pullFrom } from './baseStore'
  * @returns {*} reference to be used to single unsubscribe
  */
 const subscribeToPath = (path, callback) => {
-  const stored = pullFrom(path)
-  return subscribe(stored, callback)
+  DEBUG && console.log('STORE', `${path} subscribeToPath() ${callback}`)
+  return subscribe(path, callback)
 }
 
 /**
@@ -20,22 +19,24 @@ const subscribeToPath = (path, callback) => {
  * @param {string} path locator string path to store
  */
 const unsubscribeFromPath = (path) => {
-  const stored = pullFrom(path)
-  unsubscribe(stored)
+  DEBUG && console.log('STORE', `${path} unsubscribeFromPath()`)
+  unsubscribe(path)
 }
 
 /**
  * @access public
  * @type {Function}
- * @description Unsubscribe from all paths were callback has subscribed.
- * @param {Function} callback to unsubscribe
+ * @description Unsubscribe from all paths were callback or subscriber has subscribed.
+ * @param {Function|object} callbackOrSubscriber to unsubscribe
+ * @example
  */
-const unsubscribeCallbackOrSubscriber = (callback) => {
-  unsubscribe(callback)
+const removeSubscription = (callbackOrSubscriber) => {
+  DEBUG && console.log('STORE', `removeSubscription() ${callbackOrSubscriber}`)
+  unsubscribe(callbackOrSubscriber)
 }
 
 export {
   subscribeToPath,
   unsubscribeFromPath,
-  unsubscribeCallbackOrSubscriber,
+  removeSubscription,
 }
