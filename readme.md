@@ -108,7 +108,7 @@ Powered by [xiscodev](https://xisco.dev)
     *   [Parameters](#parameters-4)
 *   [unsubscribeFromPath](#unsubscribefrompath)
     *   [Parameters](#parameters-5)
-*   [unsubscribeCallbackOrSubscriber](#unsubscribecallbackorsubscriber)
+*   [removeSubscription](#removesubscription)
     *   [Parameters](#parameters-6)
 
 #### pullFrom
@@ -125,7 +125,7 @@ Returns **any** can be anything stored at given path, anythng stored returns und
 
 #### pushTo
 
-Push value to path.
+Push value to path and notify if could publish.
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
@@ -181,12 +181,12 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 *   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** locator string path to store
 
-#### unsubscribeCallbackOrSubscriber
+#### removeSubscription
 
-Unsubscribe from all paths were callback has subscribed.
+Unsubscribe from all paths were callback or subscriber has subscribed.
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
 ##### Parameters
 
-*   `callback` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)** to unsubscribe
+*   `callbackOrSubscriber` **([Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function) | [object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object))** to unsubscribe
