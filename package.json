@@ -1,6 +1,6 @@
 {
   "name": "store-and-pubsub",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Library to store values in user defined paths, also can be subscribed to store published changes through pub sub flow",
   "author": "José Diaz <contact@xisco.dev> (https://xisco.dev)",
   "license": "MIT",
