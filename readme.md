@@ -62,7 +62,7 @@ pushValuesTo(`${MODULE_STORE_NAME}`, values)
 Paths from store can be subscribed for changes
 
 ```js
-import { subscribeToPath, unsubscribeFromPath, unsubscribeCallbackOrSubscriber } from "store-and-pubsub";
+import { subscribeToPath, unsubscribeFromPath, removeSubscription } from "store-and-pubsub";
 
 const MODULE_STORE_NAME = 'moduleStoreName'
 
@@ -79,10 +79,10 @@ const subscriber = subscribeToPath(path, myCallback)
 unsubscribeFromPath(path)
 
 // GIVEN subscriber REMOVES IT FROM PATH SUBSCRIPTION
-unsubscribeCallbackOrSubscriber(subscription)
+removeSubscription(subscription)
 
 // GIVEN myCallback REMOVES IT FROM ALL PATHS SUBSCRIBED
-unsubscribeCallbackOrSubscriber(myCallback)
+removeSubscription(myCallback)
 ```
 
 Powered by [xiscodev](https://xisco.dev)
