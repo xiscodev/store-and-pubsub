@@ -18,6 +18,10 @@
     "eslint:recommended",
     "plugin:jsdoc/recommended"
   ],
+  "globals": {
+    "process": true,
+    "DEBUG": true
+  },
   "rules": {
     "indent": ["error", 2],
     "space-before-function-paren": [
