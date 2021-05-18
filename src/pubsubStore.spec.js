@@ -1,7 +1,7 @@
 import {
   subscribeToPath,
   unsubscribeFromPath,
-  unsubscribeCallbackOrSubscriber
+  removeSubscription
 } from './pubsubStore'
 
 // ENVIRONMENT VARIABLES
@@ -27,12 +27,12 @@ describe('unsubscribeFromPath', () => {
   })
 })
 
-describe('unsubscribeCallbackOrSubscriber', () => {
+describe('removeSubscription', () => {
   it('should exist', () => {
-    expect(unsubscribeCallbackOrSubscriber).not.toBeUndefined()
+    expect(removeSubscription).not.toBeUndefined()
   })
 
   it('should be a function', () => {
-    expect(typeof unsubscribeCallbackOrSubscriber).toBe('function')
+    expect(typeof removeSubscription).toBe('function')
   })
 })
