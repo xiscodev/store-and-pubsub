@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 
@@ -19,6 +20,11 @@ const config = {
     extensions: ['.js'],
     modules: [SRC_DIR, NODE_DIR],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      DEBUG: isDev, // use DEBUG unless process.env.DEBUG is defined
+    }),
+  ],
   module: {
     rules: [
       {
@@ -42,6 +48,7 @@ if (!isDev) {
 }
 
 console.log('NODE_ENV', process.env.NODE_ENV)
+console.log('DEBUG', isDev)
 console.log('devtool', config.devtool)
 
 module.exports = config
